@@ -22,6 +22,17 @@ bot.command("setcoords", (ctx) => {
   ctx.reply(`Koordinaatit asetettu: ${lat}, ${lon}`);
 });
 
+function formatTimestamp(ts) {
+  const date = new Date(ts);
+
+  const dd = String(date.getUTCDate()).padStart(2, "0");
+  const mm = String(date.getUTCMonth() + 1).padStart(2, "0");
+  const hh = String(date.getUTCHours()).padStart(2, "0");
+  const min = String(date.getUTCMinutes()).padStart(2, "0");
+
+  return `${dd}.${mm} klo ${hh}.${min}`;
+}
+
 bot.hears(/sää (\d+)/, async (ctx) => {
   const match = ctx.match;
   const hours = parseInt(match[1]);
@@ -53,7 +64,7 @@ bot.hears(/sää (\d+)/, async (ctx) => {
     const temp = datab.hourly.temperature_2m[hours];
     const wind = datab.hourly.windspeed_10m[hours];
     ctx.reply(
-      `Arvio seuraavaksi tunniksi kello ${hours} alkaen:\nTuuli: ${wind} m/s\nAallonkorkeus: ${wave} m\nLämpötila: ${temp} °C\n(aika: ${time})`
+      `Arvio seuraavaksi tunniksi kello ${hours} alkaen:\nTuuli: ${wind} m/s\nAallonkorkeus: ${wave} m\nLämpötila: ${temp} °C\n(aika: ${formatTimestamp(time)})`
     );
   } catch (e) {
     console.error("Sääpyyntö epäonnistui", e);
