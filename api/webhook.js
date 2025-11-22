@@ -6,15 +6,15 @@ let   lat = parseFloat(process.env.DEFAULT_LAT);
 let   lon = parseFloat(process.env.DEFAULT_LON);
 
 // Aseta komennot
-bot.start((ctx) => ctx.reply("Hei! Lähetä komento 'sää <tunnit>'"));
+bot.start((ctx) => ctx.reply("Hei! Lähetä komento '/sää <alkaen kellonaika>' tai '/setcoords <lat> <lon>'. Käyttöoje: https://ristoxxx.github.io/weatherbot/käyttöohje"));
 bot.command("setcoords", (ctx) => {
   const args = ctx.message.text.split(" ");
   if (args.length !== 3) {
     ctx.reply("Käyttö: /setcoords <lat> <lon>");
     return;
   }
-  lat = parseFloat(args[1]);
-  lon = parseFloat(args[2]);
+  lat = parseFloat(args[1]) || parseFloat(process.env.DEFAULT_LAT);
+  lon = parseFloat(args[2]) || parseFloat(process.env.DEFAULT_LON);
   if (isNaN(lat) || isNaN(lon)) {
     ctx.reply("Koordinaattien pitää olla numeroita.");
     return;
