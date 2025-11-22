@@ -1,0 +1,12 @@
+{
+  "name": "marine-saa-bot",
+  "version": "1.0.0",
+  "main": "api/webhook.js",
+  "type": "module",
+  "scripts": {
+    "vercel-build": "echo skip build"
+  },
+  "dependencies": {
+    "telegraf": "^4.0"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "functions": {
+    "api/webhook.js": {
+      "memory": 512,
+      "maxDuration": 60
+    }
+  },
+  "routes": [
+    {
+      "src": "/api/webhook",
+      "dest": "api/webhook.js"
+    }
+  ]
+}
