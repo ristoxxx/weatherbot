@@ -2,6 +2,8 @@
 import { Telegraf } from "telegraf";
 
 const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN);
+let   lat = parseFloat(process.env.DEFAULT_LAT);
+let   lon = parseFloat(process.env.DEFAULT_LON);
 
 // Aseta komennot
 bot.start((ctx) => ctx.reply("Hei! Lähetä komento 'sää <tunnit>'"));
@@ -11,8 +13,8 @@ bot.command("setcoords", (ctx) => {
     ctx.reply("Käyttö: /setcoords <lat> <lon>");
     return;
   }
-  const lat = parseFloat(args[1]);
-  const lon = parseFloat(args[2]);
+  lat = parseFloat(args[1]);
+  lon = parseFloat(args[2]);
   if (isNaN(lat) || isNaN(lon)) {
     ctx.reply("Koordinaattien pitää olla numeroita.");
     return;
@@ -39,8 +41,7 @@ bot.hears(/sää (\d+)/, async (ctx) => {
   // Oletuskoordinaatit (vaihda later oikeisiin)
 
   if (!lat || !lon) {
-    const lat = parseFloat(process.env.DEFAULT_LAT);
-    const lon = parseFloat(process.env.DEFAULT_LON);
+
     ctx.reply("Koordinaatteja ei ole asetettu (eikä oletuskoordinaatteja).");
     return;
   }
