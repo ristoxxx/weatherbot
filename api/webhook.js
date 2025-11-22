@@ -57,7 +57,7 @@ bot.hears(/sää (\d+)/, async (ctx) => {
     const temp = datab.hourly.temperature_2m[0];
     const wind = datab.hourly.windspeed_10m[0];
     ctx.reply(
-      `Arvio seuraavaksi tunniksi:\nTuuli: ${wind} m/s\nAallonkorkeus: ${wave} m\nLämpötila: ${temp} °C\n(aika: ${idx})`
+      `Arvio seuraavaksi tunniksi:\nTuuli: ${wind} m/s\nAallonkorkeus: ${wave} m\nLämpötila: ${temp} °C\n(aika: ${time})`
     );
   } catch (e) {
     console.error("Sääpyyntö epäonnistui", e);
