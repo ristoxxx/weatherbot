@@ -45,13 +45,13 @@ bot.hears(/sää (\d+)/, async (ctx) => {
   try {
     const resp = await fetch(url);
     const data = await resp.json();
-    const time = data.hourly.time[0];
-    const wave = data.hourly.wave_height[0];
+    const time = data.hourly.time[9];
+    const wave = data.hourly.wave_height[9];
 
     const respb = await fetch(urlb);
     const datab = await respb.json();
-    const temp = datab.hourly.temperature_2m[0];
-    const wind = datab.hourly.windspeed_10m[0];
+    const temp = datab.hourly.temperature_2m[9];
+    const wind = datab.hourly.windspeed_10m[9];
     ctx.reply(
       `Arvio seuraavaksi tunniksi:\nTuuli: ${wind} m/s\nAallonkorkeus: ${wave} m\nLämpötila: ${temp} °C\n(aika: ${time})`
     );
