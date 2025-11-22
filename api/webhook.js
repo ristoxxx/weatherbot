@@ -45,15 +45,15 @@ bot.hears(/sää (\d+)/, async (ctx) => {
   try {
     const resp = await fetch(url);
     const data = await resp.json();
-    const time = data.hourly.time[9];
-    const wave = data.hourly.wave_height[9];
+    const time = data.hourly.time[hours];
+    const wave = data.hourly.wave_height[hours];
 
     const respb = await fetch(urlb);
     const datab = await respb.json();
-    const temp = datab.hourly.temperature_2m[9];
-    const wind = datab.hourly.windspeed_10m[9];
+    const temp = datab.hourly.temperature_2m[hours];
+    const wind = datab.hourly.windspeed_10m[hours];
     ctx.reply(
-      `Arvio seuraavaksi tunniksi:\nTuuli: ${wind} m/s\nAallonkorkeus: ${wave} m\nLämpötila: ${temp} °C\n(aika: ${time})`
+      `Arvio seuraavaksi tunniksi kello ${hours} alkaen:\nTuuli: ${wind} m/s\nAallonkorkeus: ${wave} m\nLämpötila: ${temp} °C\n(aika: ${time})`
     );
   } catch (e) {
     console.error("Sääpyyntö epäonnistui", e);
