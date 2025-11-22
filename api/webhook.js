@@ -34,6 +34,11 @@ bot.hears(/sää (\d+)/, async (ctx) => {
   }
   // Hae sää Open-Meteolta
   const now = new Date();
+  const times = weatherData.hourly.time.map((t) => new Date(t));
+  const idx = times.findIndex((t) => t > now);
+  if (idx === -1) {
+      idx = 0;
+  }
   const end = new Date(now.getTime() + hours * 60 * 60 * 1000);
   const startIso = now.toISOString().split("T")[0];
   const endIso = end.toISOString().split("T")[0];
@@ -44,13 +49,13 @@ bot.hears(/sää (\d+)/, async (ctx) => {
   try {
     const resp = await fetch(url);
     const data = await resp.json();
-    const time = data.hourly.time[0];
-    const wave = data.hourly.wave_height[0];
+    const time = data.hourly.time[idx];
+    const wave = data.hourly.wave_height[idx];
 
     const respb = await fetch(urlb);
     const datab = await respb.json();
-    const temp = datab.hourly.temperature_2m[0];
-    const wind = datab.hourly.windspeed_10m[0];
+    const temp = datab.hourly.temperature_2m[idx];
+    const wind = datab.hourly.windspeed_10m[idx];
     ctx.reply(
       `Arvio seuraavaksi tunniksi:\nTuuli: ${wind} m/s\nAallonkorkeus: ${wave} m\nLämpötila: ${temp} °C\n(aika: ${time})`
     );
