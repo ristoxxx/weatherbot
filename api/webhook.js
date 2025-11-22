@@ -37,17 +37,20 @@ bot.hears(/sää (\d+)/, async (ctx) => {
   const end = new Date(now.getTime() + hours * 60 * 60 * 1000);
   const startIso = now.toISOString().split("T")[0];
   const endIso = end.toISOString().split("T")[0];
-  const url = `https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,windspeed_10m,wave_height&start_date=${startIso}&end_date=${endIso}&timezone=Europe/Helsinki`;
+  const url = `https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&hourly=wave_height&start_date=${startIso}&end_date=${endIso}&timezone=Europe/Helsinki`;
+  const urlb = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,windspeed_10m&timezone=Europe/Helsinki`;
+
 
   try {
     const resp = await fetch(url);
     const data = await resp.json();
-    // Jäsennä data kuten aiemmassa Python-versiossa ...
-    // (Tässä yksinkertaistettu esimerkki: katsotaan vain ensimmäinen tunti)
     const time = data.hourly.time[0];
-    const temp = data.hourly.temperature_2m[0];
-    const wind = data.hourly.windspeed_10m[0];
     const wave = data.hourly.wave_height[0];
+
+    const respb = await fetch(urlb);
+    const datab = await respb.json();
+    const temp = datab.hourly.temperature_2m[0];
+    const wind = datab.hourly.windspeed_10m[0];
     ctx.reply(
       `Arvio seuraavaksi tunniksi:\nTuuli: ${wind} m/s\nAallonkorkeus: ${wave} m\nLämpötila: ${temp} °C\n(aika: ${time})`
     );
