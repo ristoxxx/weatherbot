@@ -35,11 +35,12 @@ function formatTimestamp(ts) {
 
 bot.hears(/sää (\d+)/, async (ctx) => {
   const match = ctx.match;
-  const hours = parseInt(match[1] || new Date().getUTCHours.toString().substring(0, 2));
+  const hours = parseInt(match[1] || 12);
   // Oletuskoordinaatit (vaihda later oikeisiin)
-  const lat = parseFloat(process.env.DEFAULT_LAT);
-  const lon = parseFloat(process.env.DEFAULT_LON);
+
   if (!lat || !lon) {
+    const lat = parseFloat(process.env.DEFAULT_LAT);
+    const lon = parseFloat(process.env.DEFAULT_LON);
     ctx.reply("Koordinaatteja ei ole asetettu (eikä oletuskoordinaatteja).");
     return;
   }
