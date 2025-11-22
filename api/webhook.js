@@ -33,7 +33,7 @@ bot.hears(/sää (\d+)/, async (ctx) => {
     return;
   }
   // Hae sää Open-Meteolta
-  const now = new Date();
+  const now = new Date(now.getTime());
   const end = new Date(now.getTime() + hours * 60 * 60 * 1000);
   const startIso = now.toISOString().split("T")[0];
   const endIso = end.toISOString().split("T")[0];
