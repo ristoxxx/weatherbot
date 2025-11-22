@@ -33,9 +33,10 @@ bot.hears(/sää (\d+)/, async (ctx) => {
     return;
   }
   // Hae sää Open-Meteolta
-  const now = new Date(now.getTime());
+  const now = new Date();
+  const start = new Date(now.getTime());
   const end = new Date(now.getTime() + hours * 60 * 60 * 1000);
-  const startIso = now.toISOString().split("T")[0];
+  const startIso = start.toISOString().split("T")[0];
   const endIso = end.toISOString().split("T")[0];
   const url = `https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&hourly=wave_height&start_date=${startIso}&end_date=${endIso}&timezone=Europe/Helsinki`;
   const urlb = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,windspeed_10m&timezone=Europe/Helsinki`;
