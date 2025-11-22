@@ -35,7 +35,7 @@ function formatTimestamp(ts) {
 
 bot.hears(/sää (\d+)/, async (ctx) => {
   const match = ctx.match;
-  const hours = parseInt(match[1]);
+  const hours = parseInt(match[1] || new Date().getHours());
   // Oletuskoordinaatit (vaihda later oikeisiin)
   const lat = parseFloat(process.env.DEFAULT_LAT);
   const lon = parseFloat(process.env.DEFAULT_LON);
