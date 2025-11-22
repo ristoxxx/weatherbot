@@ -34,11 +34,6 @@ bot.hears(/sää (\d+)/, async (ctx) => {
   }
   // Hae sää Open-Meteolta
   const now = new Date();
-  const times = weatherData.hourly.time.map((t) => new Date(t));
-  const idx = times.findIndex((t) => t > now);
-  if (idx === -1) {
-      idx = 0;
-  }
   const end = new Date(now.getTime() + hours * 60 * 60 * 1000);
   const startIso = now.toISOString().split("T")[0];
   const endIso = end.toISOString().split("T")[0];
